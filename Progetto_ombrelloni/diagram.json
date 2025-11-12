@@ -1,31 +1,28 @@
 {
-    "version": 1,
-    "author": "alessandro maretti",
-    "editor": "wokwi",
-    "parts": [
-      { "type": "wokwi-arduino-uno", "id": "uno", "top": -13.46, "left": -72.69, "attrs": {} },
-      {
-        "type": "wokwi-led",
-        "id": "led1",
-        "top": -102.77,
-        "left": -49.22,
-        "attrs": { "color": "red" }
-      },
-      {
-        "type": "wokwi-resistor",
-        "id": "r1",
-        "top": -53.53,
-        "left": -23.43,
-        "attrs": { "value": "220" }
-      },
-      { "type": "wokwi-potentiometer", "id": "pot1", "top": -117.87, "left": 193.17, "attrs": {} }
-    ],
-    "connections": [
-      [ "r1:1", "led1:A", "green", [ "v0" ] ],
-      [ "r1:2", "uno:8", "green", [ "h22.34", "v0.08", "h42.4" ] ],
-      [ "led1:C", "uno:GND.1", "green", [ "v34.49", "h77.03" ] ],
-      [ "pot1:GND", "uno:GND.2", "black", [ "v251.93", "h-125.36" ] ],
-      [ "pot1:SIG", "uno:A5", "green", [ "v75.23", "h0.38", "v168.62", "h-47.74" ] ],
-      [ "pot1:VCC", "uno:5V", "red", [ "v260", "h-150.61" ] ]
-    ]
+  "version": 1,
+  "author": "Anonymous maker",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 57.6, "left": 43.24, "attrs": {} },
+    { "type": "wokwi-led", "id": "led1", "top": 34.8, "left": -82.6, "attrs": { "color": "red" } },
+    { "type": "wokwi-led", "id": "led2", "top": 34.8, "left": -130.6, "attrs": { "color": "green" } },
+    { "type": "wokwi-resistor", "id": "r1", "top": 147.95, "left": -172.8, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "r2", "top": 138.35, "left": -86.4, "attrs": { "value": "220" } },
+    { "type": "wokwi-pushbutton", "id": "btn1", "top": 121.4, "left": 192, "attrs": { "color": "black", "xray": "1" } }
+  ],
+  "connections": [
+    ["esp:TX", "$serialMonitor:RX", "", []],
+    ["esp:RX", "$serialMonitor:TX", "", []],
+    ["led2:C", "r1:1", "black", ["v0", "h-57.2"]],
+    ["esp:GND.1", "r1:2", "black", ["h-153.45"]],
+    ["led1:C", "r2:1", "black", ["v0", "h-28.4"]],
+    ["r2:2", "esp:GND.1", "black", ["v38.4", "h-1.2"]],
+    ["btn1:2.l", "esp:GND.1", "black", ["h-19.2", "v29"]],
+    ["led2:A", "esp:25", "green", ["v0"]],
+    ["led1:A", "esp:26", "green", ["v0"]],
+    ["btn1:1.l", "esp:14", "green", ["h0"]]
+  ],
+  "dependencies": {
+    "pubsubclient": "knolleary/PubSubClient@2.8"
   }
+}
